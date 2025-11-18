@@ -14,8 +14,7 @@ Model name is converted to lowercase for the collection name:
 from pydantic import BaseModel, Field
 from typing import Optional
 
-# Example schemas (replace with your own):
-
+# Existing example schemas (kept for reference)
 class User(BaseModel):
     """
     Users collection schema
@@ -38,8 +37,30 @@ class Product(BaseModel):
     category: str = Field(..., description="Product category")
     in_stock: bool = Field(True, description="Whether product is in stock")
 
-# Add your own schemas here:
+# Application-specific schemas
 # --------------------------------------------------
+class Note(BaseModel):
+    """
+    Shared notes for students
+    Collection name: "note"
+    """
+    title: str = Field(..., description="Short title for the note")
+    content: str = Field(..., description="Note content or summary")
+    subject: Optional[str] = Field(None, description="Subject e.g. Math, Science")
+    grade: Optional[str] = Field(None, description="Grade or class level e.g. Class 6")
+    author: Optional[str] = Field(None, description="Name of the student or teacher who shared it")
+
+class Message(BaseModel):
+    """
+    Messages sent to volunteer teachers
+    Collection name: "message"
+    """
+    name: str = Field(..., description="Sender name")
+    contact: Optional[str] = Field(None, description="How to reach back (phone/email)")
+    subject: Optional[str] = Field(None, description="Topic or subject of the help needed")
+    body: str = Field(..., description="Message content for the teacher")
+    grade: Optional[str] = Field(None, description="Student's grade or class level")
+    school: Optional[str] = Field(None, description="School name (optional)")
 
 # Note: The Flames database viewer will automatically:
 # 1. Read these schemas from GET /schema endpoint
